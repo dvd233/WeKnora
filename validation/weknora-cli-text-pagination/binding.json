@@ -1,0 +1,13 @@
+{
+  "base_sha": "bccb4b151bae403508da77fbb174efc79dc47c1a",
+  "feature_sha": "1e27b1a2f34443a6c22065b93bddaf7a1010b5b4",
+  "feature_tree": "f2d85125d5693143949671fa615c266d3422d9d3",
+  "diff_sha256": "234c46478dadb3a253ac5590e9f97f53c95945415e2b71c266c730039677fd7a",
+  "files": {
+    "cli/cmd/api/api.go": "dc62255974a06dbed9362b6ab04e477ba58801ff5f2a641ef3079a03a99887f2",
+    "cli/cmd/api/paginate_text_test.go": "123afbf5a950501f47fec07473bfcd8142542055cd404b87e83fbf5adf33431c"
+  },
+  "test_sha256": "123afbf5a950501f47fec07473bfcd8142542055cd404b87e83fbf5adf33431c",
+  "go_version": "1.26.8",
+  "go_archive_sha256": "d0f743b33e8d8945e6b1f432edd15785c70507121d6e2a723b21285eddf8b57b"
+}

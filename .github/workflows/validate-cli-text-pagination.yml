@@ -1,0 +1,41 @@
+name: Validate CLI text pagination (source-bound)
+
+on:
+  push:
+    branches: [validation/weknora-cli-text-pagination-20261006]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout verification branch
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, exact SHA observed in prior run
+        with:
+          path: validation-config
+          persist-credentials: false
+      - name: Require final reviewed feature binding
+        id: binding
+        shell: bash
+        run: |
+          set -euo pipefail
+          v="$GITHUB_WORKSPACE/validation-config/validation/weknora-cli-text-pagination"
+          feature=$(python3 "$v/verify_source.py" "$v/binding.json" --print-feature)
+          echo "feature=$feature" >> "$GITHUB_OUTPUT"
+      - name: Checkout bound feature commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ steps.binding.outputs.feature }}
+          path: source
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Verify source and run independent baseline and feature checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          v="$GITHUB_WORKSPACE/validation-config/validation/weknora-cli-text-pagination"
+          bash "$v/run_validation.sh" "$GITHUB_WORKSPACE/source" "$RUNNER_TEMP/text-pagination-validation"
